@@ -642,7 +642,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iconify/types@npm:^2.0.0":
+"@iconify-json/ri@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "@iconify-json/ri@npm:1.1.7"
+  dependencies:
+    "@iconify/types": "*"
+  checksum: 0fa42652206af501c27be7509fa4f3673a8cdd08de167ee373da83c92bc5689c5b009578d9b73d8fb44ee6406e9c74ad5f249e0d4f42b3371c10637c78579842
+  languageName: node
+  linkType: hard
+
+"@iconify/types@npm:*, @iconify/types@npm:^2.0.0":
   version: 2.0.0
   resolution: "@iconify/types@npm:2.0.0"
   checksum: 029f58542c160e9d4a746869cf2e475b603424d3adf3994c5cc8d0406c47e6e04a3b898b2707840c1c5b9bd5563a1660a34b110d89fce43923baca5222f4e597
@@ -1094,7 +1103,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@unocss/preset-icons@npm:0.51.4":
+"@unocss/preset-icons@npm:0.51.4, @unocss/preset-icons@npm:^0.51.4":
   version: 0.51.4
   resolution: "@unocss/preset-icons@npm:0.51.4"
   dependencies:
@@ -1286,8 +1295,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "TicTacToes@workspace:."
   dependencies:
+    "@iconify-json/ri": ^1.1.7
     "@typescript-eslint/eslint-plugin": ^5.58.0
     "@typescript-eslint/parser": ^5.58.0
+    "@unocss/preset-icons": ^0.51.4
     "@unocss/preset-web-fonts": ^0.51.4
     "@unocss/reset": ^0.51.4
     "@unocss/vite": ^0.49.4
