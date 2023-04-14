@@ -22,6 +22,7 @@ export interface Game {
   playerTurn: number
   board: Board
   state: GameState
+  winLength: number
 }
 
 export interface Player {

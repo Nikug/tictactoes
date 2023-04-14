@@ -8,7 +8,7 @@ const createBoard = (size: Vector2): Board => {
     board: [],
   }
 
-  for (let y = 0, yLimit = size.y; y < yLimit; y++) {
+  for (let y = 0; y < size.y; y++) {
     const row: Box[] = Array(size.x)
       .fill(null)
       .map((_, x) => ({ position: { x, y } }))
@@ -23,6 +23,7 @@ const createGame = (size: Vector2): Game => ({
   playerTurn: 0,
   board: createBoard(size),
   state: 'init',
+  winLength: 5,
 })
 
 const createPlayer = (id: string, name: string, mark: Mark): Player => ({ id, name, mark })
