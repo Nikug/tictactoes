@@ -1165,7 +1165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@unocss/reset@npm:0.51.4":
+"@unocss/reset@npm:0.51.4, @unocss/reset@npm:^0.51.4":
   version: 0.51.4
   resolution: "@unocss/reset@npm:0.51.4"
   checksum: 0ac48f431bee5d98b3374d9be77cff950542f10f1b6d921ed454fd33135182fd070c568d54ae5609fede71512bbab331612b038d42aa4e6aa9eca24a631eb030
@@ -1289,6 +1289,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.58.0
     "@typescript-eslint/parser": ^5.58.0
     "@unocss/preset-web-fonts": ^0.51.4
+    "@unocss/reset": ^0.51.4
     "@unocss/vite": ^0.49.4
     eslint: ^8.38.0
     eslint-config-prettier: ^8.8.0
