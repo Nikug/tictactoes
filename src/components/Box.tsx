@@ -11,7 +11,7 @@ const classes = (hasMark: boolean, isWinning: boolean) => `
   ${!isWinning ? 'hover:bg-white/25' : ''}
   ${hasMark ? 'cursor-not-allowed' : 'cursor-pointer'}
   ${hasMark && !isWinning ? 'bg-white/20' : ''}
-  ${isWinning ? 'bg-green-500' : ''}
+  ${isWinning ? 'bg-orange-400' : ''}
 `
 
 interface Props {
@@ -27,10 +27,10 @@ export const Box: Component<Props> = (props) => {
       onClick={() => props.onClick(props.state.position)}
     >
       <Show when={props.state.mark === 'x'}>
-        <div class="i-ri-close-line w-9 h-9 text-blue-900" />
+        <div class="i-ri-close-line w-full h-full text-blue-900" />
       </Show>
       <Show when={props.state.mark === 'o'}>
-        <div class="i-ri-checkbox-blank-circle-line w-7 h-7 text-red-900" />
+        <div class="i-ri-checkbox-blank-circle-line w-full h-full text-red-900" />
       </Show>
     </div>
   )

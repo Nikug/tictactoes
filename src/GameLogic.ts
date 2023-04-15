@@ -31,7 +31,7 @@ export const createGame = (size: Vector2, winLength: number): Game => ({
 
 const createPlayer = (id: string, name: string, mark: Mark): Player => ({ id, name, mark })
 
-export const [gameState, setGameState] = createStore<Game>(createGame({ x: 20, y: 20 }, 5))
+export const [gameState, setGameState] = createStore<Game>(createGame({ x: 5, y: 10 }, 5))
 
 export const setMark = (position: Vector2) => {
   if (gameState.state !== 'active') return

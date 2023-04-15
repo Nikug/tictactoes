@@ -133,6 +133,6 @@ const checkBox = (
 }
 
 const isInBounds = (x: number, y: number, dimensions: Vector2) =>
-  x >= 0 && x < dimensions.x && y >= 0 && y < dimensions.x
+  x >= 0 && x < dimensions.x && y >= 0 && y < dimensions.y
 
 const emptyCheckLine = (): CheckLine => ({ playerId: null, positions: [] })

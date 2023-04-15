@@ -209,4 +209,26 @@ test('CheckBoard finds all wins on full board', () => {
   assert.ok(wins.every((win) => win.playerId === playerId))
 })
 
+test('Diagonal (\\) checking finds winning row in rectangular board', () => {
+  const playerId = 'p1'
+  const game = createGame({ x: 5, y: 10 }, 5)
+  game.board.board[5][0].playerId = playerId
+  game.board.board[6][1].playerId = playerId
+  game.board.board[7][2].playerId = playerId
+  game.board.board[8][3].playerId = playerId
+  game.board.board[9][4].playerId = playerId
+
+  console.log('final test')
+  const wins = checkDiagonals(game.board, game.winLength, 'topRightToBottomLeft')
+
+  assert.is(wins.length, 1)
+  assert.is(wins[0].playerId, playerId)
+  assert.is(wins[0].positions.length, 5)
+  assert.ok(wins[0].positions.some((position) => position.x === 0 && position.y === 5))
+  assert.ok(wins[0].positions.some((position) => position.x === 1 && position.y === 6))
+  assert.ok(wins[0].positions.some((position) => position.x === 2 && position.y === 7))
+  assert.ok(wins[0].positions.some((position) => position.x === 3 && position.y === 8))
+  assert.ok(wins[0].positions.some((position) => position.x === 4 && position.y === 9))
+})
+
 test.run()
