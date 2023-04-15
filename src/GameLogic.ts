@@ -18,17 +18,17 @@ const createBoard = (size: Vector2): Board => {
   return board
 }
 
-const createGame = (size: Vector2): Game => ({
+export const createGame = (size: Vector2, winLength: number): Game => ({
   players: [createPlayer('p1', 'Player 1', 'x'), createPlayer('p2', 'Player 2', 'o')],
   playerTurn: 0,
   board: createBoard(size),
   state: 'init',
-  winLength: 5,
+  winLength,
 })
 
 const createPlayer = (id: string, name: string, mark: Mark): Player => ({ id, name, mark })
 
-export const [gameState, setGameState] = createStore<Game>(createGame({ x: 20, y: 20 }))
+export const [gameState, setGameState] = createStore<Game>(createGame({ x: 20, y: 20 }, 5))
 
 export const setMark = (position: Vector2) => {
   const player = gameState.players[gameState.playerTurn]

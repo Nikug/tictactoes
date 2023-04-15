@@ -11,7 +11,7 @@ export const checkBoard = (board: Board, winLength: number) => {
   return horizontalWins
 }
 
-const checkHorizontal = (board: Board, winLength: number) => {
+export const checkHorizontal = (board: Board, winLength: number): CheckLine[] => {
   const wins: CheckLine[] = []
 
   for (let y = 0; y < board.dimensions.y; y++) {
@@ -41,6 +41,8 @@ const checkHorizontal = (board: Board, winLength: number) => {
       wins.push({ ...checkLine })
     }
   }
+
+  return wins
 }
 
 const emptyCheckLine = (): CheckLine => ({ playerId: null, positions: [] })
