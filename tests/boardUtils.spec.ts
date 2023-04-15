@@ -79,6 +79,24 @@ test('Horizontal checking finds long winning row', () => {
   assert.ok(wins[0].positions.some((position) => position.x === 4 && position.y === 0))
 })
 
+test('Horizontal checking finds winning against other mark', () => {
+  const playerId = 'p1'
+  const game = createGame({ x: 5, y: 5 }, 3)
+  game.board.board[0][0].playerId = playerId
+  game.board.board[0][1].playerId = playerId
+  game.board.board[0][2].playerId = playerId
+  game.board.board[0][3].playerId = 'p2'
+
+  const wins = checkLines(game.board, game.winLength, 'horizontal')
+
+  assert.is(wins.length, 1)
+  assert.is(wins[0].playerId, playerId)
+  assert.is(wins[0].positions.length, 3)
+  assert.ok(wins[0].positions.some((position) => position.x === 0 && position.y === 0))
+  assert.ok(wins[0].positions.some((position) => position.x === 1 && position.y === 0))
+  assert.ok(wins[0].positions.some((position) => position.x === 2 && position.y === 0))
+})
+
 test('Vertical checking finds winning row', () => {
   const playerId = 'p1'
   const game = createGame({ x: 3, y: 3 }, 3)

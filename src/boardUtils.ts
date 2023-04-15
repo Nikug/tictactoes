@@ -68,7 +68,7 @@ export const checkDiagonals = (
     let checkLine: CheckLine = emptyCheckLine()
     let innerY = trtbl ? 0 : board.dimensions.y - 1
     let innerX = x
-    while (isInBounds({ x: innerX, y: innerY }, board.dimensions)) {
+    while (isInBounds(innerX, innerY, board.dimensions)) {
       const box = board.board[innerY][innerX]
       innerX++
       innerY += trtbl ? 1 : -1
@@ -87,7 +87,7 @@ export const checkDiagonals = (
     let checkLine: CheckLine = emptyCheckLine()
     let innerY = y
     let innerX = 0
-    while (isInBounds({ x: innerX, y: innerY }, board.dimensions)) {
+    while (isInBounds(innerX, innerY, board.dimensions)) {
       const box = board.board[innerY][innerX]
       innerX++
       innerY += trtbl ? 1 : -1
@@ -113,7 +113,7 @@ const checkBox = (
   box: Box,
   winLength: number
 ): CheckLine => {
-  if (!box.playerId) {
+  if (!box.playerId || (checkLine.playerId && box.playerId !== checkLine.playerId)) {
     if (checkLine.positions.length >= winLength) {
       wins.push({ ...checkLine })
     }
@@ -132,7 +132,7 @@ const checkBox = (
   return checkLine
 }
 
-const isInBounds = (point: Vector2, dimensions: Vector2) =>
-  point.x >= 0 && point.x < dimensions.x && point.y >= 0 && point.y < dimensions.x
+const isInBounds = (x: number, y: number, dimensions: Vector2) =>
+  x >= 0 && x < dimensions.x && y >= 0 && y < dimensions.x
 
 const emptyCheckLine = (): CheckLine => ({ playerId: null, positions: [] })

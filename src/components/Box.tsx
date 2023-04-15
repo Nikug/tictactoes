@@ -5,10 +5,10 @@ const classes = (hasMark: boolean, isWinning: boolean) => `
   w-full
   h-full
   border
-  hover:bg-white/25
   flex
   justify-center
   items-center
+  ${!isWinning ? 'hover:bg-white/25' : ''}
   ${hasMark ? 'cursor-not-allowed' : 'cursor-pointer'}
   ${hasMark && !isWinning ? 'bg-white/20' : ''}
   ${isWinning ? 'bg-green-500' : ''}
