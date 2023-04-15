@@ -1,7 +1,7 @@
 import { Component, Show } from 'solid-js'
 import type { Vector2, Box as BoxType } from '../types'
 
-const classes = (hasMark: boolean) => `
+const classes = (hasMark: boolean, isWinning: boolean) => `
   w-full
   h-full
   border
@@ -10,17 +10,22 @@ const classes = (hasMark: boolean) => `
   justify-center
   items-center
   ${hasMark ? 'cursor-not-allowed' : 'cursor-pointer'}
-  ${hasMark ? 'bg-white/20' : ''}
+  ${hasMark && !isWinning ? 'bg-white/20' : ''}
+  ${isWinning ? 'bg-green-500' : ''}
 `
 
 interface Props {
   state: BoxType
+  isWinning?: boolean
   onClick(position: Vector2): void
 }
 
 export const Box: Component<Props> = (props) => {
   return (
-    <div class={classes(!!props.state.mark)} onClick={() => props.onClick(props.state.position)}>
+    <div
+      class={classes(!!props.state.mark, props.isWinning)}
+      onClick={() => props.onClick(props.state.position)}
+    >
       <Show when={props.state.mark === 'x'}>
         <div class="i-ri-close-line w-9 h-9 text-blue-900" />
       </Show>

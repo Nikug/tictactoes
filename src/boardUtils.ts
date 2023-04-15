@@ -5,6 +5,10 @@ interface CheckLine {
   positions: Vector2[]
 }
 
+export const isBoardFull = (board: Board): boolean => {
+  return board.board.every((row) => row.every((box) => box.playerId))
+}
+
 export const checkBoard = (board: Board, winLength: number) => {
   if (winLength <= 0) return []
 

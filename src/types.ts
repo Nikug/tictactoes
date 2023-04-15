@@ -23,6 +23,8 @@ export interface Game {
   board: Board
   state: GameState
   winLength: number
+  winnerId: Player['id'] | null
+  winningBoxes: Vector2[]
 }
 
 export interface Player {
