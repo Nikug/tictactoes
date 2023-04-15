@@ -6,18 +6,30 @@ interface CheckLine {
 }
 
 export const checkBoard = (board: Board, winLength: number) => {
-  const horizontalWins = checkHorizontal(board, winLength)
+  const wins = checkLines(board, winLength, 'horizontal')
+  if (winLength > 1) {
+    const verticalWins = checkLines(board, winLength, 'vertical')
+    if (verticalWins.length) wins.push(...verticalWins)
+  }
 
-  return horizontalWins
+  return wins
 }
 
-export const checkHorizontal = (board: Board, winLength: number): CheckLine[] => {
+export const checkLines = (
+  board: Board,
+  winLength: number,
+  direction: 'horizontal' | 'vertical'
+): CheckLine[] => {
   const wins: CheckLine[] = []
+  const outerLimit = direction === 'horizontal' ? board.dimensions.y : board.dimensions.x
+  const innerLimit = direction === 'horizontal' ? board.dimensions.x : board.dimensions.y
 
-  for (let y = 0; y < board.dimensions.y; y++) {
+  for (let outer = 0; outer < outerLimit; outer++) {
     let checkLine: CheckLine = emptyCheckLine()
 
-    for (let x = 0; x < board.dimensions.x; x++) {
+    for (let inner = 0; inner < innerLimit; inner++) {
+      const x = direction === 'horizontal' ? inner : outer
+      const y = direction === 'horizontal' ? outer : inner
       const box = board.board[y][x]
 
       if (!box.playerId) {
