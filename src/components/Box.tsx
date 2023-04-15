@@ -1,5 +1,6 @@
-import { Component, Show } from 'solid-js'
+import { Component } from 'solid-js'
 import type { Vector2, Box as BoxType } from '../types'
+import { Mark } from './Mark'
 
 const classes = (hasMark: boolean, isWinning: boolean) => `
   w-full
@@ -26,12 +27,7 @@ export const Box: Component<Props> = (props) => {
       class={classes(!!props.state.mark, props.isWinning)}
       onClick={() => props.onClick(props.state.position)}
     >
-      <Show when={props.state.mark === 'x'}>
-        <div class="i-ri-close-line w-full h-full text-blue-900" />
-      </Show>
-      <Show when={props.state.mark === 'o'}>
-        <div class="i-ri-checkbox-blank-circle-line w-full h-full text-red-900" />
-      </Show>
+      <Mark mark={props.state.mark} />
     </div>
   )
 }

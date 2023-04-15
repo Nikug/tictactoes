@@ -31,7 +31,7 @@ export const createGame = (size: Vector2, winLength: number): Game => ({
 
 const createPlayer = (id: string, name: string, mark: Mark): Player => ({ id, name, mark })
 
-export const [gameState, setGameState] = createStore<Game>(createGame({ x: 5, y: 10 }, 5))
+export const [gameState, setGameState] = createStore<Game>(createGame({ x: 5, y: 5 }, 5))
 
 export const setMark = (position: Vector2) => {
   if (gameState.state !== 'active') return
@@ -55,3 +55,11 @@ export const setMark = (position: Vector2) => {
     })
   )
 }
+
+export const getActivePlayer = () => gameState.players[gameState.playerTurn]
+export const getWinner = () =>
+  gameState.state === 'end' && gameState.winnerId
+    ? gameState.players.find((player) => player.id === gameState.winnerId)
+    : undefined
+export const isGameActive = () => gameState.state === 'active'
+export const isGameTied = () => gameState.state === 'end' && !gameState.winnerId

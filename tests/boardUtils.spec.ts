@@ -218,7 +218,6 @@ test('Diagonal (\\) checking finds winning row in rectangular board', () => {
   game.board.board[8][3].playerId = playerId
   game.board.board[9][4].playerId = playerId
 
-  console.log('final test')
   const wins = checkDiagonals(game.board, game.winLength, 'topRightToBottomLeft')
 
   assert.is(wins.length, 1)
