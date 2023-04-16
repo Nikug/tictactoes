@@ -28,6 +28,8 @@
     "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
+    "@solidjs/router": "^0.8.2",
+    "@supabase/supabase-js": "^2.20.0",
     "solid-js": "^1.6.10",
     "unocss": "^0.51.4"
   },
