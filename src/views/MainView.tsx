@@ -5,15 +5,13 @@ import { GameSettings } from '../components/GameSettings'
 
 export const MainView: Component = () => {
   return (
-    <div>
-      <div class="mx-auto w-6xl flex flex-col justify-center items-center bg-stone-700 rounded-xl p-16">
-        <div class="mb-16">
-          <GameInformation />
-        </div>
-        <GameBoard />
-        <div class="mt-16">
-          <GameSettings />
-        </div>
+    <div class="mx-auto w-7xl flex flex-col justify-center items-center bg-stone-700 rounded-xl p-8">
+      <div class="mb-8">
+        <GameInformation />
+      </div>
+      <GameBoard />
+      <div class="mt-8">
+        <GameSettings />
       </div>
     </div>
   )

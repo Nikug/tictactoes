@@ -17,7 +17,7 @@ const App: Component = () => {
   })
 
   return (
-    <div class="w-screen h-screen overflow-auto flex justify-center items-center bg-stone-800 text-white">
+    <div class="w-screen min-h-screen overflow-auto flex justify-center items-center bg-stone-800 text-white p-8">
       <Routes>
         <Route path="/" component={MainView} />
         <Route path="/login" component={LoginView} />
