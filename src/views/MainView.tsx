@@ -1,11 +1,43 @@
+import { useNavigate } from '@solidjs/router'
 import { Component, Show } from 'solid-js'
-import { isSignedIn } from '../Auth'
+import { getUser, isSignedIn } from '../Auth'
 import { Button } from '../components/Button'
 import { GameSettings } from '../components/GameSettings'
 import { Login } from '../components/Login'
-import { Username } from '../components/Username'
+import { userName, Username } from '../components/Username'
+import { createGame } from '../GameLogic'
+import { gameSettings } from '../GameSettings'
+import { supabase } from '../supabaseClient'
+import { Player } from '../types'
 
 const MainView: Component = () => {
+  const navigate = useNavigate()
+
+  const createNewGame = async () => {
+    const user = getUser()
+    if (!user) return
+
+    const name = userName()
+    const player: Player = { id: user.id, name, mark: 'x' }
+
+    const game = createGame(gameSettings())
+    game.players.push(player)
+
+    try {
+      const { data, error } = await supabase
+        .from('active-games')
+        .insert([game])
+        .select('id')
+        .single()
+
+      if (!data?.id) throw 'No game id returned after creation.'
+      if (error) throw error
+      navigate(`/games/${data.id}`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div class="flex justify-center gap-8 bg-stone-700 p-8 rounded-xl divide-x-2">
       <div class="w-lg">
@@ -15,7 +47,9 @@ const MainView: Component = () => {
             <Button class="mb-8">Join game</Button>
             <div class="pt-4 flex flex-col items-center">
               <GameSettings />
-              <Button class="mt-4">Create game</Button>
+              <Button onClick={() => createNewGame()} class="mt-4">
+                Create game
+              </Button>
             </div>
           </Show>
         </div>

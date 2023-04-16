@@ -1,7 +1,16 @@
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
 import { checkBoard, checkDiagonals, checkLines } from '../src/boardUtils'
-import { createGame } from '../src/GameLogic'
+import { createGame as createGameObject } from '../src/GameLogic'
+import { Game, GameSettings, Player } from '../src/types'
+
+const createGame = (settings: GameSettings): Game => {
+  const game = createGameObject(settings)
+  const player1: Player = { id: 'p1', name: 'player 1', mark: 'x' }
+  const player2: Player = { id: 'p2', name: 'player 2', mark: 'o' }
+  game.players.push(player1, player2)
+  return game
+}
 
 test('Horizontal checking finds winning row', () => {
   const playerId = 'p1'

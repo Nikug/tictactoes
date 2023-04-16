@@ -24,7 +24,7 @@ const App: Component = () => {
       <NavBar />
       <Routes>
         <Route path="/" component={main} />
-        <Route path="/game/:gameId" component={game} />
+        <Route path="/games/:gameId" component={game} />
       </Routes>
     </div>
   )

@@ -22,9 +22,10 @@ const getUserName = async (): Promise<string | null> => {
   }
 }
 
+export const [userName, { mutate }] = createResource(getUserName)
+
 export const Username: Component = () => {
   const [loading, setLoading] = createSignal(false)
-  const [userName, { mutate }] = createResource(getUserName)
   const [newUserName, setNewUserName] = createSignal<string | null>(null)
 
   const updateUserName = async () => {

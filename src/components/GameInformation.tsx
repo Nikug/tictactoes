@@ -6,7 +6,7 @@ export const GameInformation: Component = () => {
     <div>
       <Show when={isGameActive()}>
         <h3 class="text-3xl font-bold text-white">
-          Play: {getActivePlayer().name} ({getActivePlayer().mark})
+          Play: {getActivePlayer()?.name} ({getActivePlayer()?.mark})
         </h3>
       </Show>
       <Show when={getWinner()}>

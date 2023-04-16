@@ -21,17 +21,15 @@ const createBoard = (size: Vector2): Board => {
 }
 
 export const createGame = (settings: GameSettings): Game => ({
-  players: [createPlayer('p1', 'Player 1', 'x'), createPlayer('p2', 'Player 2', 'o')],
+  players: [],
   playerTurn: 0,
   turns: [],
   board: createBoard(settings.dimensions),
-  state: 'active',
+  state: 'init',
   winLength: settings.winLength,
   winnerId: null,
   winningBoxes: [],
 })
-
-const createPlayer = (id: string, name: string, mark: Mark): Player => ({ id, name, mark })
 
 export const [gameState, setGameState] = createStore<Game>(createGame(gameSettings()))
 
@@ -69,4 +67,5 @@ export const getWinner = () =>
     ? gameState.players.find((player) => player.id === gameState.winnerId)
     : undefined
 export const isGameActive = () => gameState.state === 'active'
+export const isGameInit = () => gameState.state === 'init'
 export const isGameTied = () => gameState.state === 'end' && !gameState.winnerId
