@@ -5,6 +5,7 @@ const classes = `
   rounded
   bg-stone-800
   accent-amber-500
+  cursor-pointer
 `
 
 type Props = JSX.InputHTMLAttributes<HTMLInputElement>
