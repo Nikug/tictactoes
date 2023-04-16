@@ -60,7 +60,7 @@ export const Login: Component = () => {
   }
 
   createEffect(() => {
-    if (authSession().user) {
+    if (authSession()?.user) {
       navigate('/')
     }
   })

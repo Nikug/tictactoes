@@ -1,17 +1,26 @@
-import { Component } from 'solid-js'
-import { GameBoard } from '../components/GameBoard'
-import { GameInformation } from '../components/GameInformation'
+import { Component, Show } from 'solid-js'
+import { isSignedIn } from '../Auth'
+import { Button } from '../components/Button'
 import { GameSettings } from '../components/GameSettings'
+import { Login } from '../components/Login'
+import { Username } from '../components/Username'
 
 export const MainView: Component = () => {
   return (
-    <div class="mx-auto flex flex-col justify-center items-center bg-stone-700 rounded-xl py-8 px-32">
-      <div class="mb-8">
-        <GameInformation />
+    <div class="flex justify-center gap-8 bg-stone-700 p-8 rounded-xl divide-x-2">
+      <div class="w-lg flex flex-col items-center">
+        <Show when={isSignedIn()}>
+          <GameSettings />
+          <Button>Join game</Button>
+        </Show>
       </div>
-      <GameBoard />
-      <div class="mt-8">
-        <GameSettings />
+      <div class="w-lg flex justify-center">
+        <Show when={isSignedIn()}>
+          <Username />
+        </Show>
+        <Show when={!isSignedIn()}>
+          <Login />
+        </Show>
       </div>
     </div>
   )

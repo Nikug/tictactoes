@@ -16,9 +16,9 @@ export default defineConfig({
   preflights: [
     {
       getCSS: () => `
-        .border {
-            border-color: rgba(0,0,0,0.25); 
-          }
+        * {
+            border-color: rgba(0,0,0,0.25) !important; 
+        }
       `,
     },
   ],

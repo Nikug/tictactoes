@@ -1,8 +1,8 @@
 import { Component, createEffect } from 'solid-js'
 import { Route, Routes } from '@solidjs/router'
-import { MainView } from './views/MainView'
+import { GameView } from './views/GameView'
 import '@unocss/reset/tailwind.css'
-import { LoginView } from './views/LoginView'
+import { MainView } from './views/MainView'
 import { supabase } from './supabaseClient'
 import { NavBar } from './components/NavBar'
 import { setAuthSession } from './Auth'
@@ -19,11 +19,11 @@ const App: Component = () => {
   })
 
   return (
-    <div class="w-screen min-h-screen overflow-auto flex flex-col justify-center items-center bg-stone-800 text-white p-8">
+    <div class="w-screen min-h-screen overflow-auto flex flex-col justify-center items-center bg-stone-800 text-white p-8 border-black">
       <NavBar />
       <Routes>
         <Route path="/" component={MainView} />
-        <Route path="/login" component={LoginView} />
+        <Route path="/game" component={GameView} />
       </Routes>
     </div>
   )
