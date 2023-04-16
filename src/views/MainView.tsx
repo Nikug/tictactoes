@@ -5,7 +5,7 @@ import { GameSettings } from '../components/GameSettings'
 
 export const MainView: Component = () => {
   return (
-    <div class="mx-auto w-7xl flex flex-col justify-center items-center bg-stone-700 rounded-xl p-8">
+    <div class="mx-auto flex flex-col justify-center items-center bg-stone-700 rounded-xl py-8 px-32">
       <div class="mb-8">
         <GameInformation />
       </div>

@@ -1,5 +1,4 @@
-import { AuthSession, createClient } from '@supabase/supabase-js'
-import { createSignal } from 'solid-js'
+import { createClient } from '@supabase/supabase-js'
 
 const supababaseConfig = {
   url: 'https://zihrtjayxcvskvepootb.supabase.co',
@@ -8,5 +7,3 @@ const supababaseConfig = {
 }
 
 export const supabase = createClient(supababaseConfig.url, supababaseConfig.anonKey)
-
-export const [authSession, setAuthSession] = createSignal<AuthSession | null>(null)

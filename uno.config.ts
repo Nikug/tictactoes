@@ -22,4 +22,5 @@ export default defineConfig({
       `,
     },
   ],
+  rules: [[/^grid-cols-auto$/, () => ({ 'grid-auto-columns': 'minmax(0, 1fr)' })]],
 })

@@ -1,6 +1,7 @@
 import { useNavigate } from '@solidjs/router'
 import { Component, createEffect, createSignal, Show } from 'solid-js'
-import { authSession, supabase } from '../supabaseClient'
+import { authSession } from '../Auth'
+import { supabase } from '../supabaseClient'
 import { Button } from './Button'
 import { TextInput } from './TextInput'
 
