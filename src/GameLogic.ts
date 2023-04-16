@@ -1,6 +1,6 @@
 import { createStore, produce } from 'solid-js/store'
 import { checkBoard, isBoardFull } from './boardUtils'
-import { gameSettings } from './components/GameSettings'
+import { gameSettings } from './GameSettings'
 import { nextIndex } from './listUtils'
 import { Board, Box, Game, Vector2, Mark, Player, GameSettings } from './types'
 

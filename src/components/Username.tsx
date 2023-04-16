@@ -4,7 +4,7 @@ import { supabase } from '../supabaseClient'
 import { Button } from './Button'
 import { TextInput } from './TextInput'
 
-const getUserName = async (): string | null => {
+const getUserName = async (): Promise<string | null> => {
   try {
     const user = getUser()
     if (!user) return

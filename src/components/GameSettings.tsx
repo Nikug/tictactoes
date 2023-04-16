@@ -1,26 +1,6 @@
-import { Component, createSignal } from 'solid-js'
-import { startGame } from '../GameLogic'
-import { Button } from './Button'
+import { Component } from 'solid-js'
 import { Slider } from './Slider'
-import { GameSettings as GameSettingsType } from '../types'
-
-export const defaultSettings = (): GameSettingsType => ({
-  dimensions: { x: 20, y: 20 },
-  winLength: 5,
-})
-
-export const [gameSettings, setGameSettings] = createSignal<GameSettingsType>(defaultSettings())
-
-const limits = {
-  dimension: {
-    min: 1,
-    max: 50,
-  },
-  winLength: {
-    min: 1,
-    max: 10,
-  },
-}
+import { gameSettings, limits, setGameSettings } from '../GameSettings'
 
 export const GameSettings: Component = () => {
   const handleDimensionChange = (value: number) => {
@@ -48,7 +28,8 @@ export const GameSettings: Component = () => {
   }
 
   return (
-    <div class="flex items-center gap-8">
+    <div class="flex flex-col items-center gap-4 mb-4">
+      <h3 class="font-bold text-xl">Rules</h3>
       <div class="flex flex-col items-center" onWheel={handleDimensionWheel}>
         <label for="dimension-slider" class="mb-4 text-xl">
           Grid size: {gameSettings().dimensions.x}x{gameSettings().dimensions.y}
@@ -69,7 +50,7 @@ export const GameSettings: Component = () => {
         </label>
         <Slider
           id="win-length-slider"
-          class="w-32"
+          class="w-48"
           value={gameSettings().winLength}
           min={limits.winLength.min}
           max={limits.winLength.max}
@@ -77,9 +58,6 @@ export const GameSettings: Component = () => {
           onInput={(event) => handleWinLengthChange(Number(event.target.value))}
         />
       </div>
-      <Button class="mt-8" onClick={() => startGame()}>
-        New game
-      </Button>
     </div>
   )
 }

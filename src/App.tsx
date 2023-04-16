@@ -1,11 +1,12 @@
-import { Component, createEffect } from 'solid-js'
+import { Component, createEffect, lazy } from 'solid-js'
 import { Route, Routes } from '@solidjs/router'
-import { GameView } from './views/GameView'
 import '@unocss/reset/tailwind.css'
-import { MainView } from './views/MainView'
 import { supabase } from './supabaseClient'
 import { NavBar } from './components/NavBar'
 import { setAuthSession } from './Auth'
+
+const game = lazy(() => import('./views/GameView'))
+const main = lazy(() => import('./views/MainView'))
 
 const App: Component = () => {
   createEffect(() => {
@@ -22,8 +23,8 @@ const App: Component = () => {
     <div class="w-screen min-h-screen overflow-auto flex flex-col justify-center items-center bg-stone-800 text-white p-8 border-black">
       <NavBar />
       <Routes>
-        <Route path="/" component={MainView} />
-        <Route path="/game" component={GameView} />
+        <Route path="/" component={main} />
+        <Route path="/game/:gameId" component={game} />
       </Routes>
     </div>
   )

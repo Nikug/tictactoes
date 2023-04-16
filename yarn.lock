@@ -937,7 +937,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:^18.15.11":
   version: 18.15.11
   resolution: "@types/node@npm:18.15.11"
   checksum: 977b4ad04708897ff0eb049ecf82246d210939c82461922d20f7d2dcfd81bbc661582ba3af28869210f7e8b1934529dcd46bff7d448551400f9d48b9d3bddec3
@@ -1405,6 +1405,7 @@ __metadata:
     "@iconify-json/ri": ^1.1.7
     "@solidjs/router": ^0.8.2
     "@supabase/supabase-js": ^2.20.0
+    "@types/node": ^18.15.11
     "@typescript-eslint/eslint-plugin": ^5.58.0
     "@typescript-eslint/parser": ^5.58.0
     "@unocss/preset-icons": ^0.51.4
