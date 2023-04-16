@@ -1,7 +1,8 @@
 import { createStore, produce } from 'solid-js/store'
 import { checkBoard, isBoardFull } from './boardUtils'
+import { gameSettings } from './components/GameSettings'
 import { nextIndex } from './listUtils'
-import { Board, Box, Game, Vector2, Mark, Player } from './types'
+import { Board, Box, Game, Vector2, Mark, Player, GameSettings } from './types'
 
 const createBoard = (size: Vector2): Board => {
   const board: Board = {
@@ -19,19 +20,19 @@ const createBoard = (size: Vector2): Board => {
   return board
 }
 
-export const createGame = (size: Vector2, winLength: number): Game => ({
+export const createGame = (settings: GameSettings): Game => ({
   players: [createPlayer('p1', 'Player 1', 'x'), createPlayer('p2', 'Player 2', 'o')],
   playerTurn: 0,
-  board: createBoard(size),
+  board: createBoard(settings.dimensions),
   state: 'active',
-  winLength,
+  winLength: settings.winLength,
   winnerId: null,
   winningBoxes: [],
 })
 
 const createPlayer = (id: string, name: string, mark: Mark): Player => ({ id, name, mark })
 
-export const [gameState, setGameState] = createStore<Game>(createGame({ x: 5, y: 5 }, 5))
+export const [gameState, setGameState] = createStore<Game>(createGame(gameSettings()))
 
 export const setMark = (position: Vector2) => {
   if (gameState.state !== 'active') return
@@ -54,6 +55,10 @@ export const setMark = (position: Vector2) => {
       }
     })
   )
+}
+
+export const startGame = () => {
+  setGameState(createGame(gameSettings()))
 }
 
 export const getActivePlayer = () => gameState.players[gameState.playerTurn]

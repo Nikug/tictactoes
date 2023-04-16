@@ -32,3 +32,8 @@ export interface Player {
   name: string
   mark: Mark
 }
+
+export interface GameSettings {
+  dimensions: Vector2
+  winLength: number
+}

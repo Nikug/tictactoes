@@ -5,7 +5,7 @@ import { createGame } from '../src/GameLogic'
 
 test('Horizontal checking finds winning row', () => {
   const playerId = 'p1'
-  const game = createGame({ x: 3, y: 3 }, 3)
+  const game = createGame({ dimensions: { x: 3, y: 3 }, winLength: 3 })
   game.board.board[0][0].playerId = playerId
   game.board.board[0][1].playerId = playerId
   game.board.board[0][2].playerId = playerId
@@ -22,7 +22,7 @@ test('Horizontal checking finds winning row', () => {
 
 test("Horizontal checking doesn't find winning row", () => {
   const playerId = 'p1'
-  const game = createGame({ x: 3, y: 3 }, 3)
+  const game = createGame({ dimensions: { x: 3, y: 3 }, winLength: 3 })
   game.board.board[0][0].playerId = playerId
   game.board.board[1][0].playerId = playerId
   game.board.board[2][0].playerId = playerId
@@ -34,7 +34,7 @@ test("Horizontal checking doesn't find winning row", () => {
 
 test('Horizontal checking finds multiple winning rows', () => {
   const playerId = 'p1'
-  const game = createGame({ x: 3, y: 3 }, 3)
+  const game = createGame({ dimensions: { x: 3, y: 3 }, winLength: 3 })
   game.board.board[0][0].playerId = playerId
   game.board.board[0][1].playerId = playerId
   game.board.board[0][2].playerId = playerId
@@ -60,7 +60,7 @@ test('Horizontal checking finds multiple winning rows', () => {
 
 test('Horizontal checking finds long winning row', () => {
   const playerId = 'p1'
-  const game = createGame({ x: 5, y: 5 }, 3)
+  const game = createGame({ dimensions: { x: 5, y: 5 }, winLength: 3 })
   game.board.board[0][0].playerId = playerId
   game.board.board[0][1].playerId = playerId
   game.board.board[0][2].playerId = playerId
@@ -81,7 +81,7 @@ test('Horizontal checking finds long winning row', () => {
 
 test('Horizontal checking finds winning against other mark', () => {
   const playerId = 'p1'
-  const game = createGame({ x: 5, y: 5 }, 3)
+  const game = createGame({ dimensions: { x: 5, y: 5 }, winLength: 3 })
   game.board.board[0][0].playerId = playerId
   game.board.board[0][1].playerId = playerId
   game.board.board[0][2].playerId = playerId
@@ -99,7 +99,7 @@ test('Horizontal checking finds winning against other mark', () => {
 
 test('Vertical checking finds winning row', () => {
   const playerId = 'p1'
-  const game = createGame({ x: 3, y: 3 }, 3)
+  const game = createGame({ dimensions: { x: 3, y: 3 }, winLength: 3 })
   game.board.board[0][1].playerId = playerId
   game.board.board[1][1].playerId = playerId
   game.board.board[2][1].playerId = playerId
@@ -116,7 +116,7 @@ test('Vertical checking finds winning row', () => {
 
 test("Vertical checking doesn't find winning row", () => {
   const playerId = 'p1'
-  const game = createGame({ x: 3, y: 3 }, 3)
+  const game = createGame({ dimensions: { x: 3, y: 3 }, winLength: 3 })
   game.board.board[0][0].playerId = playerId
   game.board.board[0][1].playerId = playerId
   game.board.board[0][2].playerId = playerId
@@ -128,7 +128,7 @@ test("Vertical checking doesn't find winning row", () => {
 
 test('Diagonal (\\) checking finds winning row', () => {
   const playerId = 'p1'
-  const game = createGame({ x: 3, y: 3 }, 3)
+  const game = createGame({ dimensions: { x: 3, y: 3 }, winLength: 3 })
   game.board.board[0][0].playerId = playerId
   game.board.board[1][1].playerId = playerId
   game.board.board[2][2].playerId = playerId
@@ -146,7 +146,7 @@ test('Diagonal (\\) checking finds winning row', () => {
 test('Diagonal (\\) checking finds multiple winning rows for multiple players', () => {
   const playerId = 'p1'
   const player2Id = 'p2'
-  const game = createGame({ x: 6, y: 6 }, 3)
+  const game = createGame({ dimensions: { x: 6, y: 6 }, winLength: 3 })
   game.board.board[0][0].playerId = playerId
   game.board.board[1][1].playerId = playerId
   game.board.board[2][2].playerId = playerId
@@ -175,7 +175,7 @@ test('Diagonal (\\) checking finds multiple winning rows for multiple players', 
 
 test('Diagonal (/) checking finds winning row', () => {
   const playerId = 'p1'
-  const game = createGame({ x: 3, y: 3 }, 3)
+  const game = createGame({ dimensions: { x: 3, y: 3 }, winLength: 3 })
   game.board.board[2][0].playerId = playerId
   game.board.board[1][1].playerId = playerId
   game.board.board[0][2].playerId = playerId
@@ -192,7 +192,7 @@ test('Diagonal (/) checking finds winning row', () => {
 
 test('CheckBoard finds all wins on full board', () => {
   const playerId = 'p1'
-  const game = createGame({ x: 3, y: 3 }, 3)
+  const game = createGame({ dimensions: { x: 3, y: 3 }, winLength: 3 })
   game.board.board[0][0].playerId = playerId
   game.board.board[0][1].playerId = playerId
   game.board.board[0][2].playerId = playerId
@@ -211,7 +211,7 @@ test('CheckBoard finds all wins on full board', () => {
 
 test('Diagonal (\\) checking finds winning row in rectangular board', () => {
   const playerId = 'p1'
-  const game = createGame({ x: 5, y: 10 }, 5)
+  const game = createGame({ dimensions: { x: 5, y: 10 }, winLength: 5 })
   game.board.board[5][0].playerId = playerId
   game.board.board[6][1].playerId = playerId
   game.board.board[7][2].playerId = playerId
