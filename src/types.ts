@@ -20,6 +20,7 @@ export interface Board {
 export interface Game {
   players: Player[]
   playerTurn: number
+  turns: Box[]
   board: Board
   state: GameState
   winLength: number

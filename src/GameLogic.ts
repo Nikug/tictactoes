@@ -23,6 +23,7 @@ const createBoard = (size: Vector2): Board => {
 export const createGame = (settings: GameSettings): Game => ({
   players: [createPlayer('p1', 'Player 1', 'x'), createPlayer('p2', 'Player 2', 'o')],
   playerTurn: 0,
+  turns: [],
   board: createBoard(settings.dimensions),
   state: 'active',
   winLength: settings.winLength,
@@ -44,6 +45,7 @@ export const setMark = (position: Vector2) => {
       const box = state.board.board[position.y][position.x]
       box.mark = player.mark
       box.playerId = player.id
+      state.turns.push({ ...box })
 
       const wins = checkBoard(state.board, state.winLength)
       if (wins.length) {
