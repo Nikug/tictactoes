@@ -36,10 +36,7 @@ export const createGame = (settings: GameSettings): Game => ({
 export const [gameState, setGameState] = createStore<Game>(createGame(gameSettings()))
 
 export const setMark = async (position: Vector2) => {
-  const user = getUser()
-  const activePlayer = getActivePlayer()
-  if (!user || activePlayer.id !== user.id) return
-  if (gameState.state !== 'active') return
+  if (!isYourTurn() || gameState.state !== 'active') return
 
   const player = gameState.players[gameState.playerTurn]
   setGameState(
@@ -69,6 +66,7 @@ export const startGame = () => {
 }
 
 export const getActivePlayer = () => gameState.players[gameState.playerTurn]
+export const isYourTurn = () => gameState.players[gameState.playerTurn].id === getUser()?.id
 export const getWinner = () =>
   gameState.state === 'end' && gameState.winnerId
     ? gameState.players.find((player) => player.id === gameState.winnerId)

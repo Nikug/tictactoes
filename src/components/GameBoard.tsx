@@ -11,7 +11,7 @@ export const GameBoard: Component = () => {
   }
 
   return (
-    <div class="w-[800px] h-[800px] flex flex-col bg-orange-300 rounded-xl border overflow-hidden">
+    <div class="w-[700px] h-[700px] flex flex-col bg-orange-300 rounded-xl border overflow-hidden">
       <For each={gameState.board.board}>
         {(row) => (
           <div class="flex h-full">

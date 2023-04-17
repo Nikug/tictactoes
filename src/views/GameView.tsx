@@ -5,6 +5,7 @@ import { addPlayerToGameAndStart, getGameWithId, subscribeToGame } from '../api/
 import { getUser } from '../Auth'
 import { GameBoard } from '../components/GameBoard'
 import { GameInformation } from '../components/GameInformation'
+import { GameRuleInformation } from '../components/GameRuleInformation'
 import { userName } from '../components/Username'
 import { isGameInit, setGameState } from '../GameLogic'
 import { Game } from '../types'
@@ -18,15 +19,17 @@ const GameView: Component = () => {
       async () => {
         let game: Game | null = null
         let channel: RealtimeChannel | null = null
+        const user = getUser()
 
         try {
           game = await getGameWithId(params.gameId)
           if (!game) return
+          setGameState(game)
 
-          if (!game.players.some((player) => player.id === getUser().id)) {
+          if (!game.players.some((player) => player.id === user.id)) {
             const newGame = await addPlayerToGameAndStart(params.gameId, [
               ...game.players,
-              { id: getUser().id, name: userName(), mark: 'o' },
+              { id: user.id, name: userName(), mark: 'o' },
             ])
 
             setGameState(newGame)
@@ -54,6 +57,7 @@ const GameView: Component = () => {
       </Show>
       <Show when={!isGameInit()}>
         <GameBoard />
+        <GameRuleInformation />
       </Show>
     </div>
   )

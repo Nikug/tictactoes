@@ -7,13 +7,13 @@ interface Props {
 
 export const Mark: Component<Props> = (props) => {
   return (
-    <div class="h-full w-full">
+    <>
       <Show when={props.mark === 'x'}>
         <div class="i-ri-close-line w-full h-full text-blue-900" />
       </Show>
       <Show when={props.mark === 'o'}>
-        <div class="i-ri-checkbox-blank-circle-line w-full h-full text-red-900" />
+        <div class="i-ri-checkbox-blank-circle-line text-red-900 h-full w-80% m-auto" />
       </Show>
-    </div>
+    </>
   )
 }
