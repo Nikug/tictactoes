@@ -1,8 +1,10 @@
 import { createStore, produce } from 'solid-js/store'
+import { updateAfterTurn } from './api/activeGames'
+import { getUser } from './Auth'
 import { checkBoard, isBoardFull } from './boardUtils'
 import { gameSettings } from './GameSettings'
 import { nextIndex } from './listUtils'
-import { Board, Box, Game, Vector2, Mark, Player, GameSettings } from './types'
+import { Board, Box, Game, Vector2, GameSettings } from './types'
 
 const createBoard = (size: Vector2): Board => {
   const board: Board = {
@@ -33,7 +35,10 @@ export const createGame = (settings: GameSettings): Game => ({
 
 export const [gameState, setGameState] = createStore<Game>(createGame(gameSettings()))
 
-export const setMark = (position: Vector2) => {
+export const setMark = async (position: Vector2) => {
+  const user = getUser()
+  const activePlayer = getActivePlayer()
+  if (!user || activePlayer.id !== user.id) return
   if (gameState.state !== 'active') return
 
   const player = gameState.players[gameState.playerTurn]
@@ -55,6 +60,8 @@ export const setMark = (position: Vector2) => {
       }
     })
   )
+
+  await updateAfterTurn(gameState)
 }
 
 export const startGame = () => {

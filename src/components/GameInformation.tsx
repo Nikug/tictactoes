@@ -6,12 +6,12 @@ export const GameInformation: Component = () => {
     <div>
       <Show when={isGameActive()}>
         <h3 class="text-3xl font-bold text-white">
-          Play: {getActivePlayer()?.name} ({getActivePlayer()?.mark})
+          Play: {getActivePlayer()?.name ?? 'Unknown'} ({getActivePlayer()?.mark})
         </h3>
       </Show>
       <Show when={getWinner()}>
         <h3 class="text-3xl font-bold text-white">
-          Winner: {getWinner().name} ({getWinner().mark})!
+          Winner: {getWinner()?.name ?? 'Unknown'} ({getWinner().mark})!
         </h3>
       </Show>
       <Show when={isGameTied()}>

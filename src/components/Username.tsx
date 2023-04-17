@@ -1,26 +1,7 @@
 import { Component, createResource, createSignal } from 'solid-js'
-import { getUser } from '../Auth'
-import { supabase } from '../supabaseClient'
+import { getUserName, updateUserName as apiUpdateUserName } from '../api/profiles'
 import { Button } from './Button'
 import { TextInput } from './TextInput'
-
-const getUserName = async (): Promise<string | null> => {
-  try {
-    const user = getUser()
-    if (!user) return
-
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('username')
-      .eq('id', user.id)
-      .single()
-    if (error) throw error
-    return data.username
-  } catch (error) {
-    console.error(error)
-    return null
-  }
-}
 
 export const [userName, { mutate }] = createResource(getUserName)
 
@@ -31,17 +12,7 @@ export const Username: Component = () => {
   const updateUserName = async () => {
     try {
       setLoading(true)
-      const user = getUser()
-      if (!user) return
-
-      const updates = {
-        id: user.id,
-        username: newUserName(),
-        updated_at: new Date().toISOString(),
-      }
-
-      const { error } = await supabase.from('profiles').upsert(updates)
-      if (error) throw error
+      await apiUpdateUserName(newUserName())
       mutate(newUserName())
     } catch (error) {
       console.error(error)

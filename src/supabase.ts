@@ -7,3 +7,8 @@ const supababaseConfig = {
 }
 
 export const supabase = createClient(supababaseConfig.url, supababaseConfig.anonKey)
+
+export const tables = {
+  activeGames: 'active-games',
+  profiles: 'profiles',
+}

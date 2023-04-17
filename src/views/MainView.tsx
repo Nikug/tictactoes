@@ -7,7 +7,7 @@ import { Login } from '../components/Login'
 import { userName, Username } from '../components/Username'
 import { createGame } from '../GameLogic'
 import { gameSettings } from '../GameSettings'
-import { supabase } from '../supabaseClient'
+import { supabase, tables } from '../supabase'
 import { Player } from '../types'
 
 const MainView: Component = () => {
@@ -25,7 +25,7 @@ const MainView: Component = () => {
 
     try {
       const { data, error } = await supabase
-        .from('active-games')
+        .from(tables.activeGames)
         .insert([game])
         .select('id')
         .single()

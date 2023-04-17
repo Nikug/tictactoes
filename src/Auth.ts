@@ -1,6 +1,6 @@
 import { AuthSession } from '@supabase/supabase-js'
 import { createSignal } from 'solid-js'
-import { supabase } from './supabaseClient'
+import { supabase } from './supabase'
 
 export const [authSession, setAuthSession] = createSignal<AuthSession | null>(null)
 

@@ -1,11 +1,12 @@
 import { useParams } from '@solidjs/router'
+import { RealtimeChannel } from '@supabase/supabase-js'
 import { Component, createEffect, on, Show } from 'solid-js'
+import { addPlayerToGameAndStart, getGameWithId, subscribeToGame } from '../api/activeGames'
 import { getUser } from '../Auth'
 import { GameBoard } from '../components/GameBoard'
 import { GameInformation } from '../components/GameInformation'
 import { userName } from '../components/Username'
 import { isGameInit, setGameState } from '../GameLogic'
-import { supabase } from '../supabaseClient'
 import { Game } from '../types'
 
 const GameView: Component = () => {
@@ -15,46 +16,30 @@ const GameView: Component = () => {
     on(
       () => params.gameId,
       async () => {
+        let game: Game | null = null
+        let channel: RealtimeChannel | null = null
+
         try {
-          const { data, error } = await supabase
-            .from('active-games')
-            .select<'', Game>()
-            .eq('id', params.gameId)
-            .single()
+          game = await getGameWithId(params.gameId)
+          if (!game) return
 
-          if (!data) return
+          if (!game.players.some((player) => player.id === getUser().id)) {
+            const newGame = await addPlayerToGameAndStart(params.gameId, [
+              ...game.players,
+              { id: getUser().id, name: userName(), mark: 'o' },
+            ])
 
-          if (!data.players.some((player) => player.id === getUser().id)) {
-            // Join the game
-            data.players.push({ id: getUser().id, name: userName(), mark: 'o' })
-
-            const update = await supabase
-              .from('active-games')
-              .update({ players: data.players, state: 'active' })
-              .eq('id', params.gameId)
-            if (update.error) throw update.error
+            setGameState(newGame)
           }
-
-          if (error) throw error
         } catch (error) {
           console.error(error)
         }
 
-        const channel = supabase
-          .channel('changes')
-          .on(
-            'postgres_changes',
-            {
-              event: 'UPDATE',
-              schema: 'public',
-              table: 'active-games',
-              filter: `id=eq.${params.gameId}`,
-            },
-            (payload) => setGameState(payload.new)
-          )
-          .subscribe()
+        if (game) {
+          channel = subscribeToGame(params.gameId, setGameState)
+        }
 
-        return () => channel.unsubscribe()
+        return () => channel?.unsubscribe()
       }
     )
   )
@@ -64,7 +49,9 @@ const GameView: Component = () => {
       <div class="mb-8">
         <GameInformation />
       </div>
-      <Show when={isGameInit()}>Waiting on an opponent...</Show>
+      <Show when={isGameInit()}>
+        <p class="text-xl font-bold">Waiting on an opponent...</p>
+      </Show>
       <Show when={!isGameInit()}>
         <GameBoard />
       </Show>

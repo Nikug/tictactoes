@@ -1,7 +1,7 @@
 import { Component, createEffect, lazy } from 'solid-js'
 import { Route, Routes } from '@solidjs/router'
 import '@unocss/reset/tailwind.css'
-import { supabase } from './supabaseClient'
+import { supabase } from './supabase'
 import { NavBar } from './components/NavBar'
 import { setAuthSession } from './Auth'
 

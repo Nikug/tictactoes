@@ -18,6 +18,7 @@ export interface Board {
 }
 
 export interface Game {
+  id?: number
   players: Player[]
   playerTurn: number
   turns: Box[]
