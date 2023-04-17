@@ -5,6 +5,7 @@ import { addPlayerToGameAndStart, getGameWithId, subscribeToGame } from '../api/
 import { getUser } from '../Auth'
 import { GameBoard } from '../components/GameBoard'
 import { GameInformation } from '../components/GameInformation'
+import { GameNavBar } from '../components/GameNavBar'
 import { GameRuleInformation } from '../components/GameRuleInformation'
 import { userName } from '../components/Username'
 import { isGameInit, setGameState } from '../GameLogic'
@@ -26,7 +27,7 @@ const GameView: Component = () => {
           if (!game) return
           setGameState(game)
 
-          if (!game.players.some((player) => player.id === user.id)) {
+          if (game.state === 'init' && !game.players.some((player) => player.id === user.id)) {
             const newGame = await addPlayerToGameAndStart(params.gameId, [
               ...game.players,
               { id: user.id, name: userName(), mark: 'o' },
@@ -38,7 +39,7 @@ const GameView: Component = () => {
           console.error(error)
         }
 
-        if (game) {
+        if (game && game.state !== 'end') {
           channel = subscribeToGame(params.gameId, setGameState)
         }
 
@@ -48,18 +49,21 @@ const GameView: Component = () => {
   )
 
   return (
-    <div class="mx-auto flex flex-col justify-center items-center bg-stone-700 rounded-xl py-8 px-32">
-      <div class="mb-8">
-        <GameInformation />
+    <>
+      <GameNavBar />
+      <div class="mx-auto flex flex-col justify-center items-center bg-stone-700 rounded-xl py-8 px-32">
+        <div class="mb-8">
+          <GameInformation />
+        </div>
+        <Show when={isGameInit()}>
+          <p class="text-xl font-bold">Waiting on an opponent...</p>
+        </Show>
+        <Show when={!isGameInit()}>
+          <GameBoard />
+          <GameRuleInformation />
+        </Show>
       </div>
-      <Show when={isGameInit()}>
-        <p class="text-xl font-bold">Waiting on an opponent...</p>
-      </Show>
-      <Show when={!isGameInit()}>
-        <GameBoard />
-        <GameRuleInformation />
-      </Show>
-    </div>
+    </>
   )
 }
 

@@ -4,7 +4,7 @@ import { Mark } from './Mark'
 
 export const GameInformation: Component = () => {
   return (
-    <div>
+    <div class="w-full text-center">
       <Show when={isGameActive()}>
         <h3 class="text-3xl font-bold text-white">
           {isYourTurn() ? <span class="underline">Your turn</span> : 'Opponent turn'}:{' '}

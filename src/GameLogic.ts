@@ -72,5 +72,6 @@ export const getWinner = () =>
     ? gameState.players.find((player) => player.id === gameState.winnerId)
     : undefined
 export const isGameActive = () => gameState.state === 'active'
+export const isGameEnd = () => gameState.state === 'end'
 export const isGameInit = () => gameState.state === 'init'
 export const isGameTied = () => gameState.state === 'end' && !gameState.winnerId
