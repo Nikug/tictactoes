@@ -31,6 +31,7 @@ export const createGame = (settings: GameSettings): Game => ({
   winLength: settings.winLength,
   winnerId: null,
   winningBoxes: [],
+  leaverId: null,
 })
 
 export const [gameState, setGameState] = createStore<Game>(createGame(gameSettings()))
