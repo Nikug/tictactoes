@@ -1,7 +1,7 @@
 import { useNavigate } from '@solidjs/router'
 import { Component, Show } from 'solid-js'
 import { leaveGame } from '../api/games'
-import { gameState, isGameActive, isGameEnd } from '../GameLogic'
+import { gameState, isGameActive, isGameEnd, isGameInit } from '../GameLogic'
 import { Button } from './Button'
 
 export const GameNavBar: Component = () => {
@@ -24,7 +24,7 @@ export const GameNavBar: Component = () => {
           <h1 class="font-bold text-5xl text-center">TicTacToes</h1>
         </div>
         <div class="col-start-3 col-span-1 flex justify-end">
-          <Show when={isGameActive()}>
+          <Show when={isGameActive() || isGameInit()}>
             <Button onClick={() => handleLeaveGame()}>Leave game</Button>
           </Show>
           <Show when={isGameEnd()}>
