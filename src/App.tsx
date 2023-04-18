@@ -7,6 +7,20 @@ import { setAuthSession } from './Auth'
 const game = lazy(() => import('./views/GameView'))
 const main = lazy(() => import('./views/MainView'))
 
+const classes = `
+  w-screen
+  min-h-screen
+  overflow-auto
+  flex
+  flex-col
+  justify-center
+  items-center
+  bg-stone-800
+  text-white
+  p-8
+  border-black
+`
+
 const App: Component = () => {
   createEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -19,7 +33,7 @@ const App: Component = () => {
   })
 
   return (
-    <div class="w-screen min-h-screen overflow-auto flex flex-col justify-center items-center bg-stone-800 text-white p-8 border-black">
+    <div style={{ 'background-image': 'url("src/assets/tic-tac-toe.svg")' }} class={classes}>
       <Routes>
         <Route path="/" component={main} />
         <Route path="/games/:gameId" component={game} />
