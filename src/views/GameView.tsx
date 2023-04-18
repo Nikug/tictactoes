@@ -1,7 +1,7 @@
 import { useParams } from '@solidjs/router'
 import { RealtimeChannel } from '@supabase/supabase-js'
 import { Component, createEffect, on, Show } from 'solid-js'
-import { addPlayerToGameAndStart, getGameWithId, subscribeToGame } from '../api/activeGames'
+import { addPlayerToGameAndStart, getGameWithId, subscribeToGame } from '../api/games'
 import { getUser } from '../Auth'
 import { GameBoard } from '../components/GameBoard'
 import { GameInformation } from '../components/GameInformation'

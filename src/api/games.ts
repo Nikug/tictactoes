@@ -4,7 +4,7 @@ import { Game, Player } from '../types'
 
 export const getGameWithId = async (id: string): Promise<Game> => {
   const { data, error } = await supabase
-    .from(tables.activeGames)
+    .from(tables.games)
     .select<'', Game>()
     .eq('id', id)
     .single()
@@ -16,7 +16,7 @@ export const getGameWithId = async (id: string): Promise<Game> => {
 
 export const addPlayerToGameAndStart = async (id: string, players: Player[]): Promise<Game> => {
   const { data, error } = await supabase
-    .from(tables.activeGames)
+    .from(tables.games)
     .update({ players: players, state: 'active' })
     .eq('id', id)
     .select<'', Game>()
@@ -37,7 +37,7 @@ export const subscribeToGame = (
       {
         event: 'UPDATE',
         schema: 'public',
-        table: tables.activeGames,
+        table: tables.games,
         filter: `id=eq.${id}`,
       },
       (payload) => updateGame(payload.new as Game)
@@ -62,7 +62,7 @@ export const updateAfterTurn = async (game: Game): Promise<void> => {
     updates.winningBoxes = game.winningBoxes
   }
 
-  const result = await supabase.from(tables.activeGames).update(updates).eq('id', game.id)
+  const result = await supabase.from(tables.games).update(updates).eq('id', game.id)
 
   if (result.error) throw result.error
 }

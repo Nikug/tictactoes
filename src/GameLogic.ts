@@ -1,5 +1,5 @@
 import { createStore, produce } from 'solid-js/store'
-import { updateAfterTurn } from './api/activeGames'
+import { updateAfterTurn } from './api/games'
 import { getUser } from './Auth'
 import { checkBoard, isBoardFull } from './boardUtils'
 import { gameSettings } from './GameSettings'

@@ -26,7 +26,7 @@ const MainView: Component = () => {
 
     try {
       const { data, error } = await supabase
-        .from(tables.activeGames)
+        .from(tables.games)
         .insert([game])
         .select('id')
         .single()
