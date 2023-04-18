@@ -25,8 +25,9 @@ export interface Game {
   board: Board
   state: GameState
   winLength: number
-  winnerId: Player['id'] | null
   winningBoxes: Vector2[]
+  winnerId: Player['id'] | null
+  leaverId: Player['id'] | null
 }
 
 export interface Player {

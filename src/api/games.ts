@@ -1,13 +1,10 @@
 import { RealtimeChannel } from '@supabase/supabase-js'
+import { getUser } from '../Auth'
 import { supabase, tables } from '../supabase'
 import { Game, Player } from '../types'
 
 export const getGameWithId = async (id: string): Promise<Game> => {
-  const { data, error } = await supabase
-    .from(tables.games)
-    .select<'', Game>()
-    .eq('id', id)
-    .single()
+  const { data, error } = await supabase.from(tables.games).select<'', Game>().eq('id', id).single()
 
   if (error) throw error
 
@@ -64,5 +61,21 @@ export const updateAfterTurn = async (game: Game): Promise<void> => {
 
   const result = await supabase.from(tables.games).update(updates).eq('id', game.id)
 
+  if (result.error) throw result.error
+}
+
+export const leaveGame = async (game: Game) => {
+  const user = getUser()
+  if (!game.id || !user) return
+
+  const theOtherPlayer = game.players.find((player) => player.id !== user.id)
+
+  const updates: Partial<Game> = {
+    state: 'end',
+    winnerId: theOtherPlayer?.id,
+    leaverId: user.id,
+  }
+
+  const result = await supabase.from(tables.games).update(updates).eq('id', game.id)
   if (result.error) throw result.error
 }
