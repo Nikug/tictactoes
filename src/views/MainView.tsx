@@ -1,5 +1,5 @@
 import { useNavigate } from '@solidjs/router'
-import { Component, Show } from 'solid-js'
+import { Component, createSignal, Show } from 'solid-js'
 import { getUser, isSignedIn } from '../Auth'
 import { Button } from '../components/Button'
 import { GameSettings } from '../components/GameSettings'
@@ -8,10 +8,11 @@ import { NavBar } from '../components/NavBar'
 import { userName, Username } from '../components/Username'
 import { createGame } from '../GameLogic'
 import { gameSettings } from '../GameSettings'
-import { supabase, tables } from '../supabase'
 import { Player } from '../types'
+import { createGame as apiCreateGame, getWaitingGame } from '../api/games'
 
 const MainView: Component = () => {
+  const [errorMessage, setErrorMessage] = createSignal<string | null>(null)
   const navigate = useNavigate()
 
   const createNewGame = async () => {
@@ -25,16 +26,24 @@ const MainView: Component = () => {
     game.players.push(player)
 
     try {
-      const { data, error } = await supabase
-        .from(tables.games)
-        .insert([game])
-        .select('id')
-        .single()
-
-      if (!data?.id) throw 'No game id returned after creation.'
-      if (error) throw error
-      navigate(`/games/${data.id}`)
+      const gameId = await apiCreateGame(game)
+      navigate(`/games/${gameId}`)
     } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const joinGame = async () => {
+    try {
+      const gameId = await getWaitingGame()
+      if (!gameId) {
+        setErrorMessage('No games found!')
+        return
+      }
+
+      navigate(`/games/${gameId}`)
+    } catch (error) {
+      setErrorMessage('No games found!')
       console.error(error)
     }
   }
@@ -47,7 +56,12 @@ const MainView: Component = () => {
           <h2 class="font-bold text-3xl mb-8 text-center">Play!</h2>
           <div class="divide-y-2 flex flex-col items-center">
             <Show when={isSignedIn()}>
-              <Button class="mb-8">Join game</Button>
+              <div class="mb-8 flex flex-col items-center">
+                <Button onClick={() => joinGame()}>Join game</Button>
+                <Show when={errorMessage()}>
+                  <p>{errorMessage()}</p>
+                </Show>
+              </div>
               <div class="pt-4 flex flex-col items-center">
                 <GameSettings />
                 <Button onClick={() => createNewGame()} class="mt-4">

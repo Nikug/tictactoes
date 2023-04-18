@@ -79,3 +79,24 @@ export const leaveGame = async (game: Game) => {
   const result = await supabase.from(tables.games).update(updates).eq('id', game.id)
   if (result.error) throw result.error
 }
+
+export const createGame = async (game: Game): Promise<number> => {
+  const { data, error } = await supabase.from(tables.games).insert([game]).select('id').single()
+
+  if (!data?.id) throw 'No game id returned after creation.'
+  if (error) throw error
+
+  return data.id
+}
+
+export const getWaitingGame = async (): Promise<number | null> => {
+  const { data, error } = await supabase
+    .from(tables.games)
+    .select('id')
+    .eq('state', 'init')
+    .order('id', { ascending: true })
+    .limit(1)
+
+  if (error) throw error
+  return data?.at(0)?.id ?? null
+}
