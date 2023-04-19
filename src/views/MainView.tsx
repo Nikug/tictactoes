@@ -55,9 +55,9 @@ const MainView: Component = () => {
         <div class="w-lg">
           <h2 class="font-bold text-3xl mb-8 text-center">Play!</h2>
           <div class="divide-y-2 flex flex-col items-center">
-            <Show when={isSignedIn()}>
+            <Show when={isSignedIn()} fallback={'Sign in to play!'}>
               <div class="mb-8 flex flex-col items-center">
-                <Button onClick={() => joinGame()}>Join game</Button>
+                <Button onClick={() => joinGame()}>Join a random game</Button>
                 <Show when={errorMessage()}>
                   <p>{errorMessage()}</p>
                 </Show>
@@ -72,7 +72,9 @@ const MainView: Component = () => {
           </div>
         </div>
         <div class="w-lg">
-          <h2 class="font-bold text-3xl mb-8 text-center">Settings</h2>
+          <Show when={isSignedIn()}>
+            <h2 class="font-bold text-3xl mb-8 text-center">Settings</h2>
+          </Show>
           <div class="flex flex-col items-center">
             <Show when={isSignedIn()}>
               <Username />
