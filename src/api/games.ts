@@ -3,7 +3,7 @@ import { getUser } from '../Auth'
 import { supabase, tables } from '../supabase'
 import { Game, Player } from '../types'
 
-export const getGameWithId = async (id: string): Promise<Game> => {
+export const getGameWithId = async (id: string | number): Promise<Game> => {
   const { data, error } = await supabase.from(tables.games).select<'', Game>().eq('id', id).single()
 
   if (error) throw error

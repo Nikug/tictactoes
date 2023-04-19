@@ -3,7 +3,11 @@ import { gameState, setMark } from '../GameLogic'
 import { Box } from './Box'
 import { Box as BoxType } from '../types'
 
-export const GameBoard: Component = () => {
+interface Props {
+  showWinningBoxes: boolean
+}
+
+export const GameBoard: Component<Props> = (props) => {
   const isWinningBox = (box: BoxType) => {
     return gameState.winningBoxes.some(
       (winningBox) => winningBox.x === box.position.x && winningBox.y === box.position.y
@@ -20,7 +24,7 @@ export const GameBoard: Component = () => {
                 <Box
                   state={box}
                   onClick={(position) => setMark(position)}
-                  isWinning={isWinningBox(box)}
+                  isWinning={props.showWinningBoxes && isWinningBox(box)}
                 />
               )}
             </For>

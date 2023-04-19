@@ -98,8 +98,10 @@ export const Login: Component = () => {
         </Show>
       </div>
       <div class="flex flex-col gap-4">
-        <Button onClick={() => signUp()}>Sign up</Button>
         <Button onClick={() => signIn()}>Sign in</Button>
+        <Button secondary onClick={() => signUp()}>
+          Sign up
+        </Button>
       </div>
     </div>
   )

@@ -67,6 +67,12 @@ const GameView: Component = () => {
     replayPlayTurn(replayTurnIndex())
   }
 
+  const handleStopShowingReplay = async () => {
+    const game = await getGameWithId(gameState.id)
+    if (!game) return
+    setGameState(game)
+  }
+
   const changeReplayTurn = (increment: -1 | 1) => {
     const newIndex = clamp(replayTurnIndex() + increment, 0, gameState.turns.length - 1)
     if (newIndex === replayTurnIndex()) {
@@ -78,6 +84,8 @@ const GameView: Component = () => {
     if (increment === 1) replayPlayTurn(replayTurnIndex())
     if (increment === -1) replayUndoTurn(replayTurnIndex() + 1)
   }
+
+  const isLastReplayTurn = () => replayTurnIndex() + 1 === gameState.turns.length
 
   return (
     <>
@@ -102,6 +110,10 @@ const GameView: Component = () => {
           </Show>
           <Show when={isGameReplay()}>
             <div class="flex gap-4 mt-4">
+              <div />
+              <Button secondary onclick={() => handleStopShowingReplay()}>
+                Close replay
+              </Button>
               <Button onclick={() => changeReplayTurn(-1)}>Previous move</Button>
               <Button onclick={() => changeReplayTurn(1)}>Next move</Button>
             </div>
@@ -111,7 +123,7 @@ const GameView: Component = () => {
           <p class="text-xl font-bold">Waiting on an opponent...</p>
         </Show>
         <Show when={!isGameInit()}>
-          <GameBoard />
+          <GameBoard showWinningBoxes={!isGameReplay() || isLastReplayTurn()} />
           <GameRuleInformation />
         </Show>
       </div>
