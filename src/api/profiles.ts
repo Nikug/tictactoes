@@ -1,5 +1,6 @@
 import { getUser } from '../Auth'
 import { supabase, tables } from '../supabase'
+import { User } from '../types'
 
 export const getUserName = async (): Promise<string | null> => {
   try {
@@ -31,4 +32,21 @@ export const updateUserName = async (newUserName: string): Promise<void> => {
 
   const { error } = await supabase.from(tables.profiles).upsert(updates)
   if (error) throw error
+}
+
+export const getUserWithId = async (userId: string): Promise<User | null> => {
+  try {
+    const { data, error } = await supabase
+      .from(tables.profiles)
+      .select<'', User>()
+      .eq('id', userId)
+      .single()
+
+    if (error) throw error
+
+    return data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }

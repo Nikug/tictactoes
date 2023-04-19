@@ -1,8 +1,21 @@
+import { useLocation, useNavigate } from '@solidjs/router'
 import { Component, Show } from 'solid-js'
-import { isSignedIn, signOut } from '../Auth'
+import { getUser, isSignedIn, signOut } from '../Auth'
 import { Button } from './Button'
 
 export const NavBar: Component = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const isProfilesPage = () => location.pathname.includes('profiles')
+
+  const handleProfile = () => {
+    const user = getUser()
+    if (!user) return
+
+    navigate(`/profiles/${user.id}`)
+  }
+
   return (
     <>
       <div class="h-16" />
@@ -10,9 +23,18 @@ export const NavBar: Component = () => {
         <div class="col-start-2 col-span-1">
           <h1 class="font-bold text-5xl text-center">TicTacToes</h1>
         </div>
-        <div class="col-start-3 col-span-1 flex justify-end">
+        <div class="col-start-3 col-span-1 flex justify-end gap-4">
+          <Show
+            when={isProfilesPage()}
+            fallback={<Button onClick={() => handleProfile()}>View profile</Button>}
+          >
+            <Button onClick={() => navigate('/')}>Return to main menu</Button>
+          </Show>
+
           <Show when={isSignedIn()}>
-            <Button onClick={() => signOut()}>Sign out</Button>
+            <Button secondary onClick={() => signOut()}>
+              Sign out
+            </Button>
           </Show>
         </div>
       </div>

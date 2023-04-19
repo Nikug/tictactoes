@@ -6,6 +6,7 @@ import { setAuthSession } from './Auth'
 
 const game = lazy(() => import('./views/GameView'))
 const main = lazy(() => import('./views/MainView'))
+const profile = lazy(() => import('./views/ProfileView'))
 
 const classes = `
   w-screen
@@ -37,6 +38,7 @@ const App: Component = () => {
       <Routes>
         <Route path="/" component={main} />
         <Route path="/games/:gameId" component={game} />
+        <Route path="/profiles/:userId" component={profile} />
       </Routes>
     </div>
   )

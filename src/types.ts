@@ -40,3 +40,8 @@ export interface GameSettings {
   dimensions: Vector2
   winLength: number
 }
+
+export interface User {
+  id: string
+  username: string
+}
