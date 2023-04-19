@@ -1,18 +1,31 @@
 import { useParams } from '@solidjs/router'
 import { RealtimeChannel } from '@supabase/supabase-js'
-import { Component, createEffect, on, Show } from 'solid-js'
+import { Component, createEffect, createSignal, on, Show } from 'solid-js'
 import { addPlayerToGameAndStart, getGameWithId, subscribeToGame } from '../api/games'
 import { getUser } from '../Auth'
+import { Button } from '../components/Button'
 import { GameBoard } from '../components/GameBoard'
 import { GameInformation } from '../components/GameInformation'
 import { GameNavBar } from '../components/GameNavBar'
 import { GameRuleInformation } from '../components/GameRuleInformation'
+import { ReplayInformation } from '../components/ReplayInformation'
 import { userName } from '../components/Username'
-import { isGameInit, setGameState } from '../GameLogic'
+import {
+  isGameEnd,
+  isGameInit,
+  startReplay,
+  setGameState,
+  replayPlayTurn,
+  replayUndoTurn,
+  gameState,
+  isGameReplay,
+} from '../GameLogic'
+import { clamp } from '../mathUtils'
 import { Game } from '../types'
 
 const GameView: Component = () => {
   const params = useParams<{ gameId: string }>()
+  const [replayTurnIndex, setReplayTurnIndex] = createSignal(0)
 
   createEffect(
     on(
@@ -48,12 +61,51 @@ const GameView: Component = () => {
     )
   )
 
+  const handleShowReplay = () => {
+    setReplayTurnIndex(0)
+    startReplay()
+    replayPlayTurn(replayTurnIndex())
+  }
+
+  const changeReplayTurn = (increment: -1 | 1) => {
+    const newIndex = clamp(replayTurnIndex() + increment, 0, gameState.turns.length - 1)
+    if (newIndex === replayTurnIndex()) {
+      return
+    } else {
+      setReplayTurnIndex(newIndex)
+    }
+
+    if (increment === 1) replayPlayTurn(replayTurnIndex())
+    if (increment === -1) replayUndoTurn(replayTurnIndex() + 1)
+  }
+
   return (
     <>
       <GameNavBar />
       <div class="mx-auto flex flex-col justify-center items-center bg-stone-700 rounded-xl py-8 px-32">
-        <div class="mb-8">
-          <GameInformation />
+        <div class="mb-8 flex flex-col items-center">
+          <Show
+            when={!isGameReplay()}
+            fallback={
+              <ReplayInformation
+                turnIndex={replayTurnIndex()}
+                turn={gameState.turns[replayTurnIndex()]}
+              />
+            }
+          >
+            <GameInformation />
+          </Show>
+          <Show when={isGameEnd()}>
+            <Button class="mt-4" onclick={() => handleShowReplay()}>
+              Show replay
+            </Button>
+          </Show>
+          <Show when={isGameReplay()}>
+            <div class="flex gap-4 mt-4">
+              <Button onclick={() => changeReplayTurn(-1)}>Previous move</Button>
+              <Button onclick={() => changeReplayTurn(1)}>Next move</Button>
+            </div>
+          </Show>
         </div>
         <Show when={isGameInit()}>
           <p class="text-xl font-bold">Waiting on an opponent...</p>

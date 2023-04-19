@@ -4,7 +4,7 @@ export interface Vector2 {
 }
 
 export type Mark = 'x' | 'o'
-export type GameState = 'init' | 'active' | 'end'
+export type GameState = 'init' | 'active' | 'end' | 'replay'
 
 export interface Box {
   mark?: Mark

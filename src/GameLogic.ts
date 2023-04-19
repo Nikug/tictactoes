@@ -3,7 +3,7 @@ import { updateAfterTurn } from './api/games'
 import { getUser } from './Auth'
 import { checkBoard, isBoardFull } from './boardUtils'
 import { gameSettings } from './GameSettings'
-import { nextIndex } from './listUtils'
+import { nextIndex } from './mathUtils'
 import { Board, Box, Game, Vector2, GameSettings } from './types'
 
 const createBoard = (size: Vector2): Board => {
@@ -66,13 +66,51 @@ export const startGame = () => {
   setGameState(createGame(gameSettings()))
 }
 
+export const startReplay = () => {
+  if (!gameState.turns.length) return
+
+  setGameState(
+    produce((state) => {
+      state.board = createBoard(state.board.dimensions)
+      state.state = 'replay'
+    })
+  )
+}
+
+export const replayPlayTurn = (turnIndex: number) => {
+  const turn = gameState.turns[turnIndex]
+  if (!turn) return
+
+  setGameState(
+    produce((state) => {
+      const box = state.board.board[turn.position.y][turn.position.x]
+      box.mark = turn.mark
+      box.playerId = turn.playerId
+    })
+  )
+}
+
+export const replayUndoTurn = (turnIndex: number) => {
+  const turn = gameState.turns[turnIndex]
+  if (!turn) return
+
+  setGameState(
+    produce((state) => {
+      const box = state.board.board[turn.position.y][turn.position.x]
+      box.mark = undefined
+      box.playerId = undefined
+    })
+  )
+}
+
 export const getActivePlayer = () => gameState.players[gameState.playerTurn]
 export const isYourTurn = () => gameState.players[gameState.playerTurn].id === getUser()?.id
 export const getWinner = () =>
   gameState.state === 'end' && gameState.winnerId
     ? gameState.players.find((player) => player.id === gameState.winnerId)
     : undefined
+export const isGameInit = () => gameState.state === 'init'
 export const isGameActive = () => gameState.state === 'active'
 export const isGameEnd = () => gameState.state === 'end'
-export const isGameInit = () => gameState.state === 'init'
+export const isGameReplay = () => gameState.state === 'replay'
 export const isGameTied = () => gameState.state === 'end' && !gameState.winnerId

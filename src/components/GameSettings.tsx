@@ -1,10 +1,11 @@
 import { Component } from 'solid-js'
 import { Slider } from './Slider'
 import { gameSettings, limits, setGameSettings } from '../GameSettings'
+import { clamp } from '../mathUtils'
 
 export const GameSettings: Component = () => {
   const handleDimensionChange = (value: number) => {
-    const clamped = Math.min(limits.dimension.max, Math.max(value, limits.dimension.min))
+    const clamped = clamp(value, limits.dimension.min, limits.dimension.max)
     setGameSettings({ ...gameSettings(), dimensions: { x: clamped, y: clamped } })
   }
 
@@ -16,7 +17,7 @@ export const GameSettings: Component = () => {
   }
 
   const handleWinLengthChange = (value: number) => {
-    const clamped = Math.min(limits.winLength.max, Math.max(value, limits.winLength.min))
+    const clamped = clamp(value, limits.winLength.min, limits.winLength.max)
     setGameSettings({ ...gameSettings(), winLength: clamped })
   }
 

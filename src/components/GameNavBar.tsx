@@ -1,7 +1,7 @@
 import { useNavigate } from '@solidjs/router'
 import { Component, Show } from 'solid-js'
 import { leaveGame } from '../api/games'
-import { gameState, isGameActive, isGameEnd, isGameInit } from '../GameLogic'
+import { gameState, isGameActive, isGameEnd, isGameInit, isGameReplay } from '../GameLogic'
 import { Button } from './Button'
 
 export const GameNavBar: Component = () => {
@@ -27,7 +27,7 @@ export const GameNavBar: Component = () => {
           <Show when={isGameActive() || isGameInit()}>
             <Button onClick={() => handleLeaveGame()}>Leave game</Button>
           </Show>
-          <Show when={isGameEnd()}>
+          <Show when={isGameEnd() || isGameReplay()}>
             <Button onClick={() => navigate('/')}>Return to main menu</Button>
           </Show>
         </div>
