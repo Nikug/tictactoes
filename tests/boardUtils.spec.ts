@@ -239,4 +239,24 @@ test('Diagonal (\\) checking finds winning row in rectangular board', () => {
   assert.ok(wins[0].positions.some((position) => position.x === 4 && position.y === 9))
 })
 
+test("Vertical checking finds winning row next to opponent's marks", () => {
+  const playerId = 'p1'
+  const player2Id = 'p2'
+  const game = createGame({ dimensions: { x: 5, y: 5 }, winLength: 3 })
+  game.board.board[0][2].playerId = player2Id
+  game.board.board[1][2].playerId = playerId
+  game.board.board[2][2].playerId = playerId
+  game.board.board[3][2].playerId = playerId
+  game.board.board[4][2].playerId = player2Id
+
+  const wins = checkLines(game.board, game.winLength, 'vertical')
+
+  assert.is(wins.length, 1)
+  assert.is(wins[0].playerId, playerId)
+  assert.is(wins[0].positions.length, 3)
+  assert.ok(wins[0].positions.some((position) => position.x === 2 && position.y === 1))
+  assert.ok(wins[0].positions.some((position) => position.x === 2 && position.y === 2))
+  assert.ok(wins[0].positions.some((position) => position.x === 2 && position.y === 3))
+})
+
 test.run()

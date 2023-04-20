@@ -113,20 +113,20 @@ const checkBox = (
   box: Box,
   winLength: number
 ): CheckLine => {
-  if (!box.playerId || (checkLine.playerId && box.playerId !== checkLine.playerId)) {
+  if (!box.playerId || box.playerId !== checkLine.playerId) {
     if (checkLine.positions.length >= winLength) {
       wins.push({ ...checkLine })
     }
-    checkLine = emptyCheckLine()
-    return checkLine
-  }
 
-  if (box.playerId === checkLine.playerId || checkLine.playerId === null) {
-    checkLine.playerId = box.playerId
-    checkLine.positions.push({ x: box.position.x, y: box.position.y })
+    if (box.playerId) {
+      checkLine.playerId = box.playerId
+      checkLine.positions = [{ x: box.position.x, y: box.position.y }]
+    } else {
+      checkLine = emptyCheckLine()
+    }
   } else {
-    checkLine.playerId = box.playerId
-    checkLine.positions = [{ x: box.position.x, y: box.position.y }]
+    checkLine.playerId = box.playerId ?? null
+    checkLine.positions.push({ x: box.position.x, y: box.position.y })
   }
 
   return checkLine
