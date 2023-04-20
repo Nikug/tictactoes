@@ -1,11 +1,13 @@
 import { useParams } from '@solidjs/router'
-import { Component, createResource } from 'solid-js'
+import { Component, createEffect, createResource } from 'solid-js'
+import { getUserGames } from '../api/games'
 import { getUserWithId } from '../api/profiles'
 import { NavBar } from '../components/NavBar'
 
 const ProfileView: Component = () => {
   const params = useParams<{ userId: string }>()
   const [user] = createResource(params.userId, getUserWithId)
+  const [userGames] = createResource(params.userId, getUserGames)
 
   return (
     <>

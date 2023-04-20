@@ -100,3 +100,16 @@ export const getWaitingGame = async (): Promise<number | null> => {
   if (error) throw error
   return data?.at(0)?.id ?? null
 }
+
+export const getUserGames = async (playerId: string): Promise<Game[]> => {
+  const { data, error } = await supabase
+    .from(tables.games)
+    .select<'', Game>()
+    .contains('players::jsonb', `[{ "id": "${playerId}" }]`)
+    .limit(50)
+    .order('id', { ascending: false })
+
+  if (error) throw error
+
+  return data
+}
