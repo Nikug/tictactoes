@@ -1,7 +1,8 @@
 import { useParams } from '@solidjs/router'
-import { Component, createMemo, createResource } from 'solid-js'
+import { Component, createMemo, createResource, For } from 'solid-js'
 import { getUserGames } from '../api/games'
 import { getUserWithId } from '../api/profiles'
+import { GameSummary } from '../components/GameSummary'
 import { LabeledValue } from '../components/LabeledValue'
 import { NavBar } from '../components/NavBar'
 
@@ -18,10 +19,16 @@ const ProfileView: Component = () => {
       <div class="bg-stone-700 p-8 rounded-xl w-5xl">
         <h3 class="text-5xl font-bold text-center mb-8">{user()?.username}</h3>
         <div class="w-full flex justify-center gap-32">
-          <LabeledValue value={wonGames()?.length} label="Won games" />
-          <LabeledValue value={userGames()?.length} label="Total games" />
+          <LabeledValue value={wonGames()?.length ?? 0} label="Won games" />
+          <LabeledValue value={userGames()?.length ?? 0} label="Total games" />
         </div>
         <h3 class="text-5xl font-bold text-center mt-16 mb-8">History</h3>
+        <p class="mb-2">
+          Profile is <span class="font-bold">bolded</span>
+        </p>
+        <For each={userGames()}>
+          {(game) => <GameSummary game={game} playerId={params.userId} />}
+        </For>
       </div>
     </>
   )
