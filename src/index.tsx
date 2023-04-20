@@ -18,5 +18,6 @@ render(
       <App />
     </Router>
   ),
-  root
+  // eslint-disable-next-line
+  root!
 )

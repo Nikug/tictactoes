@@ -7,8 +7,8 @@ import { TextInput } from './TextInput'
 
 export const Login: Component = () => {
   const [loading, setLoading] = createSignal(false)
-  const [email, setEmail] = createSignal<string | null>(null)
-  const [password, setPassword] = createSignal<string | null>(null)
+  const [email, setEmail] = createSignal<string | undefined>(undefined)
+  const [password, setPassword] = createSignal<string | undefined>(undefined)
   const [signInError, setSignInError] = createSignal<string | null>(null)
   const navigate = useNavigate()
 

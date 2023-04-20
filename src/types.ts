@@ -32,7 +32,7 @@ export interface Game {
 
 export interface Player {
   id: string
-  name: string
+  name: string | null | undefined
   mark: Mark
 }
 

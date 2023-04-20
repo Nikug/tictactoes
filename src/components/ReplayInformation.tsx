@@ -9,7 +9,8 @@ interface Props {
 }
 
 export const ReplayInformation: Component<Props> = (props) => {
-  const getPlayer = (playerId: string) => gameState.players.find((player) => player.id === playerId)
+  const getPlayer = (playerId: string | undefined) =>
+    gameState.players.find((player) => player.id === playerId)
 
   return (
     <div class="w-full text-center">

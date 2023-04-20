@@ -3,7 +3,7 @@ import { Player } from '../types'
 import { Mark } from './Mark'
 
 interface Props {
-  player: Player
+  player: Player | undefined
 }
 
 export const PlayerNameWithMark: Component<Props> = (props) => {

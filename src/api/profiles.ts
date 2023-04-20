@@ -5,7 +5,7 @@ import { User } from '../types'
 export const getUserName = async (): Promise<string | null> => {
   try {
     const user = getUser()
-    if (!user) return
+    if (!user) return null
 
     const { data, error } = await supabase
       .from(tables.profiles)
@@ -20,7 +20,7 @@ export const getUserName = async (): Promise<string | null> => {
   }
 }
 
-export const updateUserName = async (newUserName: string): Promise<void> => {
+export const updateUserName = async (newUserName: string | undefined): Promise<void> => {
   const user = getUser()
   if (!user) return
 

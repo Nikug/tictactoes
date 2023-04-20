@@ -7,7 +7,7 @@ export const [userName, { mutate }] = createResource(getUserName)
 
 export const Username: Component = () => {
   const [loading, setLoading] = createSignal(false)
-  const [newUserName, setNewUserName] = createSignal<string | null>(null)
+  const [newUserName, setNewUserName] = createSignal<string | undefined>(undefined)
 
   const updateUserName = async () => {
     try {

@@ -34,6 +34,7 @@ const GameView: Component = () => {
         let game: Game | null = null
         let channel: RealtimeChannel | null = null
         const user = getUser()
+        if (!user) return
 
         try {
           game = await getGameWithId(params.gameId)

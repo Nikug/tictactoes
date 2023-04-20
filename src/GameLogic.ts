@@ -41,7 +41,7 @@ export const setMark = async (position: Vector2) => {
 
   const player = gameState.players[gameState.playerTurn]
   setGameState(
-    produce((state) => {
+    produce((state: Game) => {
       state.playerTurn = nextIndex(state.playerTurn, state.players.length)
       const box = state.board.board[position.y][position.x]
       box.mark = player.mark
@@ -70,7 +70,7 @@ export const startReplay = () => {
   if (!gameState.turns.length) return
 
   setGameState(
-    produce((state) => {
+    produce((state: Game) => {
       state.board = createBoard(state.board.dimensions)
       state.state = 'replay'
     })
@@ -82,7 +82,7 @@ export const replayPlayTurn = (turnIndex: number) => {
   if (!turn) return
 
   setGameState(
-    produce((state) => {
+    produce((state: Game) => {
       const box = state.board.board[turn.position.y][turn.position.x]
       box.mark = turn.mark
       box.playerId = turn.playerId
@@ -95,7 +95,7 @@ export const replayUndoTurn = (turnIndex: number) => {
   if (!turn) return
 
   setGameState(
-    produce((state) => {
+    produce((state: Game) => {
       const box = state.board.board[turn.position.y][turn.position.x]
       box.mark = undefined
       box.playerId = undefined

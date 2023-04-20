@@ -24,7 +24,7 @@ interface Props {
 export const Box: Component<Props> = (props) => {
   return (
     <div
-      class={classes(!!props.state.mark, props.isWinning)}
+      class={classes(!!props.state.mark, !!props.isWinning)}
       onClick={() => props.onClick(props.state.position)}
     >
       <Mark mark={props.state.mark} />
