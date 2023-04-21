@@ -21,7 +21,7 @@ import {
   isGameReplay,
 } from '../GameLogic'
 import { clamp } from '../mathUtils'
-import { Game } from '../types'
+import { Box, Game } from '../types'
 
 const GameView: Component = () => {
   const params = useParams<{ gameId: string }>()
@@ -88,6 +88,14 @@ const GameView: Component = () => {
 
   const isLastReplayTurn = () => replayTurnIndex() + 1 === gameState.turns.length
 
+  const getLatestTurn = (): Box | undefined => {
+    if (isGameReplay()) {
+      return gameState.turns[replayTurnIndex()]
+    } else {
+      return gameState.turns?.at(-1)
+    }
+  }
+
   return (
     <>
       <GameNavBar />
@@ -124,7 +132,10 @@ const GameView: Component = () => {
           <p class="text-xl font-bold">Waiting on an opponent...</p>
         </Show>
         <Show when={!isGameInit()}>
-          <GameBoard showWinningBoxes={!isGameReplay() || isLastReplayTurn()} />
+          <GameBoard
+            showWinningBoxes={isGameEnd() || isLastReplayTurn()}
+            latestTurn={getLatestTurn()}
+          />
           <GameRuleInformation />
         </Show>
       </div>

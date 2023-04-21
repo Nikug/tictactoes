@@ -1,10 +1,11 @@
 import { Component, For } from 'solid-js'
-import { gameState, isGameReplay, setMark } from '../GameLogic'
+import { gameState, setMark } from '../GameLogic'
 import { Box } from './Box'
 import { Box as BoxType } from '../types'
 
 interface Props {
   showWinningBoxes: boolean
+  latestTurn: BoxType | undefined
 }
 
 export const GameBoard: Component<Props> = (props) => {
@@ -15,11 +16,12 @@ export const GameBoard: Component<Props> = (props) => {
   }
 
   const isLatestTurn = (box: BoxType): boolean => {
-    if (isGameReplay()) return false
-    const lastTurn = gameState.turns.at(-1)
-    if (!lastTurn) return false
+    if (!props.latestTurn) return false
 
-    return lastTurn.position.x === box.position.x && lastTurn.position.y === box.position.y
+    return (
+      props.latestTurn.position.x === box.position.x &&
+      props.latestTurn.position.y === box.position.y
+    )
   }
 
   return (
