@@ -3,7 +3,6 @@ import { Route, Routes } from '@solidjs/router'
 import '@unocss/reset/tailwind.css'
 import { supabase } from './supabase'
 import { setAuthSession } from './Auth'
-import './assets/tic-tac-toe.svg'
 
 const game = lazy(() => import('./views/GameView'))
 const main = lazy(() => import('./views/MainView'))
@@ -35,7 +34,7 @@ const App: Component = () => {
   })
 
   return (
-    <div style={{ 'background-image': 'url("src/assets/tic-tac-toe.svg")' }} class={classes}>
+    <div style={{ 'background-image': 'url("./src/assets/tic-tac-toe.svg")' }} class={classes}>
       <Routes>
         <Route path="/" component={main} />
         <Route path="/games/:gameId" component={game} />
