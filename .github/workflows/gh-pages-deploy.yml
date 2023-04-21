@@ -25,7 +25,7 @@ jobs:
       - name: Build
         run: |
           yarn
-          yarn predeploy
+          yarn build
       - uses: actions/upload-pages-artifact@v1
         with:
           path: ./dist
