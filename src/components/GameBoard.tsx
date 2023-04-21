@@ -16,12 +16,10 @@ export const GameBoard: Component<Props> = (props) => {
   }
 
   const isLatestTurn = (box: BoxType): boolean => {
-    if (!props.latestTurn) return false
+    const position = props.latestTurn?.position
+    if (!position) return false
 
-    return (
-      props.latestTurn.position.x === box.position.x &&
-      props.latestTurn.position.y === box.position.y
-    )
+    return position.x === box.position.x && position.y === box.position.y
   }
 
   return (
