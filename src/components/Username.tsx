@@ -1,13 +1,17 @@
-import { Component, createResource, createSignal } from 'solid-js'
+import { Component, createEffect, createResource, createSignal } from 'solid-js'
 import { getUserName, updateUserName as apiUpdateUserName } from '../api/profiles'
 import { Button } from './Button'
 import { TextInput } from './TextInput'
 
-export const [userName, { mutate }] = createResource(getUserName)
+export const [userName, { mutate, refetch }] = createResource(getUserName)
 
 export const Username: Component = () => {
   const [loading, setLoading] = createSignal(false)
   const [newUserName, setNewUserName] = createSignal<string | undefined>(undefined)
+
+  createEffect(() => {
+    refetch()
+  })
 
   const updateUserName = async () => {
     try {
