@@ -34,7 +34,7 @@ const App: Component = () => {
   })
 
   return (
-    <div style={{ 'background-image': 'url("./src/assets/tic-tac-toe.svg")' }} class={classes}>
+    <div style={{ 'background-image': 'url("/assets/tic-tac-toe.svg")' }} class={classes}>
       <Routes>
         <Route path="/" component={main} />
         <Route path="/games/:gameId" component={game} />
