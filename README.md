@@ -1,34 +1,39 @@
-## Usage
+# TicTacToes
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+The online multiplayer Tictactoe experience.
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+Deployed to Github Pages at [nikug.github.io/tictactoes](nikug.github.io/tictactoes)
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+Created with the hype SUS-stack ([SolidJS](solidjs.com), [UnoCSS](unocss.dev), [Supabase](supabase.com))
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+![sus](https://tenor.com/fi/view/among-us-gif-24283650)
 
-## Available Scripts
 
-In the project directory, you can run:
+## Features
 
-### `npm dev` or `npm start`
+- Play realtime tictactoe with anyone easily in your browser 🌍
+- View replays of games to improve your skills 📈
+- Check out player profiles to view their game history and important statistics 🎮
+- Spectate any ongoing game without even logging in 👀
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies
 
-The page will reload if you make edits.<br>
+- [Vite](vitejs.dev) - The modern build tool
+- [Typescript](www.typescriptlang.org) - Type checking
+- [SolidJS](solidjs.com) - Easy, reactive, and blazingly fast user interfaces
+- [UnoCSS](unocss.dev) - Atomic CSS like Tailwind, but built different
+- [Supabase](supabase.com) - BaaS (Backend as a service) for realtime database actions directly from the user interface
+- [uvu](https://github.com/lukeed/uvu) - Super lightweight and extremely performant testing
 
-### `npm run build`
+## How to run
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+This project uses Node v18 and modern [Yarn](https://yarnpkg.com/). To get started:
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- Clone this repository
+- Navigate to the project root
+- Run `yarn` to install dependencies
+- Run `yarn dev` to start the project in development mode
 
-## Deployment
+## Editor tooling
 
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+Modern Yarn doesn't use `node_modules` so you might need to run a script to generate necessary files for your editor. More information [here](https://yarnpkg.com/getting-started/editor-sdks)
