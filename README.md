@@ -6,7 +6,7 @@ Deployed to Github Pages at [nikug.github.io/tictactoes](nikug.github.io/tictact
 
 Created with the hype SUS-stack ([SolidJS](solidjs.com), [UnoCSS](unocss.dev), [Supabase](supabase.com))
 
-![sus](https://tenor.com/fi/view/among-us-gif-24283650)
+![sus](https://tenor.com/fi/view/among-us-gif-24283650.gif)
 
 
 ## Features
