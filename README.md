@@ -2,12 +2,9 @@
 
 The online multiplayer Tictactoe experience.
 
-Deployed to Github Pages at [nikug.github.io/tictactoes](nikug.github.io/tictactoes)
+Deployed to Github Pages at [nikug.github.io/tictactoes](https://nikug.github.io/tictactoes)
 
-Created with the hype SUS-stack ([SolidJS](solidjs.com), [UnoCSS](unocss.dev), [Supabase](supabase.com))
-
-![sus](https://tenor.com/fi/view/among-us-gif-24283650.gif)
-
+Created with the hype SUS-stack ([SolidJS](https://solidjs.com), [UnoCSS](https://unocss.dev), [Supabase](https://supabase.com))
 
 ## Features
 
@@ -18,11 +15,11 @@ Created with the hype SUS-stack ([SolidJS](solidjs.com), [UnoCSS](unocss.dev), [
 
 ## Technologies
 
-- [Vite](vitejs.dev) - The modern build tool
-- [Typescript](www.typescriptlang.org) - Type checking
-- [SolidJS](solidjs.com) - Easy, reactive, and blazingly fast user interfaces
-- [UnoCSS](unocss.dev) - Atomic CSS like Tailwind, but built different
-- [Supabase](supabase.com) - BaaS (Backend as a service) for realtime database actions directly from the user interface
+- [Vite](https://vitejs.dev) - The modern build tool
+- [Typescript](https://www.typescriptlang.org) - Type checking
+- [SolidJS](https://solidjs.com) - Easy, reactive, and blazingly fast user interfaces
+- [UnoCSS](https://unocss.dev) - Atomic CSS like Tailwind, but built different
+- [Supabase](https://supabase.com) - BaaS (Backend as a service) for realtime database actions directly from the user interface
 - [uvu](https://github.com/lukeed/uvu) - Super lightweight and extremely performant testing
 
 ## How to run
