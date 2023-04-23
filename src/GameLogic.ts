@@ -113,4 +113,5 @@ export const isGameInit = () => gameState.state === 'init'
 export const isGameActive = () => gameState.state === 'active'
 export const isGameEnd = () => gameState.state === 'end'
 export const isGameReplay = () => gameState.state === 'replay'
-export const isGameTied = () => gameState.state === 'end' && !gameState.winnerId
+export const isGameTied = () =>
+  gameState.state === 'end' && !gameState.winnerId && !gameState.leaverId

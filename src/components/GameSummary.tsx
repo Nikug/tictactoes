@@ -15,6 +15,7 @@ export const GameSummary: Component<Props> = (props) => {
   const opponent = () => props.game.players.find((player) => player.id !== props.playerId)
   const isWin = () => props.game.winnerId === props.playerId
   const isLeave = () => props.game.leaverId === props.playerId
+  const isTied = () => !props.game.winnerId && !props.game.leaverId
 
   const handleViewGame = () => {
     navigate(`/games/${props.game.id}`)
@@ -36,8 +37,11 @@ export const GameSummary: Component<Props> = (props) => {
         <span>Total turns: {props.game.turns.length}</span>
       </div>
       <div class="basis-1/4 text-lg text-stone-300 font-bold">
-        <Show when={isWin()} fallback={<p>Defeat</p>}>
+        <Show when={isWin()}>
           <p class="text-2xl text-orange-300">Victory</p>
+        </Show>
+        <Show when={isTied()} fallback={<p>Defeat</p>}>
+          Tie
         </Show>
         <Show when={isLeave()}>You left</Show>
       </div>
