@@ -40,8 +40,9 @@ export const GameSummary: Component<Props> = (props) => {
         <Show when={isWin()}>
           <p class="text-2xl text-orange-300">Victory</p>
         </Show>
-        <Show when={isTied()} fallback={<p>Defeat</p>}>
-          Tie
+        <Show when={isTied()}>Tie</Show>
+        <Show when={!isWin() && !isTied()}>
+          <p>Defeat</p>
         </Show>
         <Show when={isLeave()}>You left</Show>
       </div>
